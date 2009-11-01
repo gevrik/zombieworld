@@ -45,23 +45,62 @@ android:layout_gravity="center_horizontal" >
      
     <ImageButton
 	android:id="@+id/combat_agg"
-	android:layout_width="150px"
-	android:layout_height="38px"
-	android:layout_marginRight="5dip"
-	android:src="@drawable/combat_agg"
-	android:background="@drawable/combat_agg"
+	android:layout_width="60px"
+	android:layout_height="50px"
+	android:src="@drawable/cc_agg"
+	android:background="@drawable/cc_agg"
+	/>
+
+    <ImageButton
+	android:id="@+id/combat_nor"
+	android:layout_width="60px"
+	android:layout_height="50px"
+	android:src="@drawable/cc_nor"
+	android:background="@drawable/cc_nor"
+	/>
+
+    <ImageButton
+	android:id="@+id/combat_wit"
+	android:layout_width="60px"
+	android:layout_height="50px"
+	android:src="@drawable/cc_wit"
+	android:background="@drawable/cc_wit"
+	/>
+
+    <ImageButton
+	android:id="@+id/combat_snk"
+	android:layout_width="60px"
+	android:layout_height="50px"
+	android:src="@drawable/cc_snk"
+	android:background="@drawable/cc_snk"
+	/>
+
+    <ImageButton
+	android:id="@+id/combat_def"
+	android:layout_width="60px"
+	android:layout_height="50px"
+	android:src="@drawable/cc_def"
+	android:background="@drawable/cc_def"
 	/>
 
 </TableRow>
 
 </TableLayout>
 
+	<ImageButton
+	android:id="@+id/combatinventory"
+	android:layout_width="150px"
+	android:layout_height="38px"
+	android:src="@drawable/inventory"
+	android:background="@drawable/inventory"
+	/>
+
 <TextView android:id="@+id/threatlevel"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:gravity="center_horizontal"
-android:layout_marginTop="20px"
-android:textSize="20px"/> 
+android:layout_marginTop="10px"
+android:textSize="15px"/> 
 
 </LinearLayout>
 </LinearLayout>

@@ -11,9 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.util.Log;
 
 public class Game extends Activity implements OnClickListener {
 	
@@ -25,6 +22,20 @@ public class Game extends Activity implements OnClickListener {
 	   public int DEFENSE_LEVEL = 0;
 	   public int currentenc = 0;
 	   public int turns = 0;
+	   public int shotgun = 0;
+	   public int axe = 0;
+	   public int grenade = 0;
+	   
+	   public int playercc = 0;
+	   public int npccc = 0;
+	   public int ccbonus = 0;
+	   public int npcdmg = 0;
+	   public int combat_player = 0;
+	   public int combat_npc = 0;
+	   
+	   Random rand = new Random();
+	   
+	   String loot_string = "";
 	   
 	   TextView textView;
 	   
@@ -51,6 +62,9 @@ public class Game extends Activity implements OnClickListener {
 	// Set up click listeners for all the buttons
 	View dirwestButton = findViewById(R.id.dir_west);
 	dirwestButton.setOnClickListener(this);
+	
+	View invButton = findViewById(R.id.inventory);
+	invButton.setOnClickListener(this);
 		
 	textView = (TextView) findViewById(R.id.threatlevel);
 	textView.setText("Threat Level: " + THREAT_LEVEL + "/10");	
@@ -60,13 +74,81 @@ public class Game extends Activity implements OnClickListener {
 	textView.setText("Turns: " + turns);
 	}
 	
+	private void Inventory() {
+		
+		setContentView(R.layout.inventory);
+		// Set up click listeners for all the buttons
+		//View dirwestButton = findViewById(R.id.dir_west);
+		//dirwestButton.setOnClickListener(this);
+		
+		View continueButton = findViewById(R.id.continue_button);
+		continueButton.setOnClickListener(this);
+			
+		textView = (TextView) findViewById(R.id.AmountShotgun);
+		textView.setText("Shotgun: " + shotgun);	
+		textView = (TextView) findViewById(R.id.AmountAxe);
+		textView.setText("Axe: " + axe);
+		textView = (TextView) findViewById(R.id.AmountGrenade);
+		textView.setText("Grenade : " + grenade);
+		
+		}
+	
+	private void CombatInventory() {
+		
+		setContentView(R.layout.combatinventory);
+		// Set up click listeners for all the buttons
+		//View dirwestButton = findViewById(R.id.dir_west);
+		//dirwestButton.setOnClickListener(this);
+		
+		View continueButton = findViewById(R.id.continue_button_bad);
+		continueButton.setOnClickListener(this);
+
+		if (shotgun	> 0) {
+		View shotgunButton = findViewById(R.id.shotgun_button);
+		shotgunButton.setOnClickListener(this);
+			}
+		if (axe	> 0) {
+			View axeButton = findViewById(R.id.axe_button);
+			axeButton.setOnClickListener(this);
+			}
+		if (grenade	> 0) {
+			View grenadeButton = findViewById(R.id.grenade_button);
+			grenadeButton.setOnClickListener(this);
+			}
+		
+		textView = (TextView) findViewById(R.id.AmountShotgun);
+		textView.setText("Shotgun: " + shotgun);	
+		textView = (TextView) findViewById(R.id.AmountAxe);
+		textView.setText("Axe: " + axe);
+		textView = (TextView) findViewById(R.id.AmountGrenade);
+		textView.setText("Grenade : " + grenade);
+		
+		}
+	
 	public void onClick(View v) {
 
-		Random rand = new Random();
-				
 		switch (v.getId()) {
 		case R.id.continue_button:
-		BreathingSpace();
+			BreathingSpace();
+		break;
+		
+		case R.id.combatinventory:
+			CombatInventory();
+		break;
+		case R.id.inventory:
+		Inventory();
+		break;
+		
+		case R.id.shotgun_button:
+			ShotgunBlast();
+		break;
+		
+		case R.id.axe_button:
+			AxeSwing();
+		break;
+		
+		case R.id.grenade_button:
+			GrenadeChuck();
 		break;
 		
 		case R.id.continue_button_bad:
@@ -135,9 +217,8 @@ public class Game extends Activity implements OnClickListener {
 		break;
 		
 		case R.id.dir_west:
-			//THREAT_LEVEL = THREAT_LEVEL + 1;
-				
-  			int randenc = rand.nextInt(11);
+							
+  			int randenc = rand.nextInt(16);
 
 			if ( randenc == 0 ) {
 				currentenc = randenc;
@@ -219,12 +300,194 @@ public class Game extends Activity implements OnClickListener {
 				currentenc = randenc;
 				startEncFifteen();
 			}
+			else {
+				turns = turns + 1;
+				currentenc = 15;
+				startEncFifteen();
+			}			
 			
 		break;
 		
 		case R.id.combat_agg:
-			int combat_player = rand.nextInt(20) + ATTACK_LEVEL;
-			int combat_npc = rand.nextInt(20) + THREAT_LEVEL;
+			
+			playercc = 0;
+			//npccc = rand.nextInt(5);
+			
+			if (npccc == 0 && playercc == 0) {
+				ccbonus = 0;
+			}
+
+			else if (npccc == 1 && playercc == 0) {
+				ccbonus = 5;
+			}
+			
+			else if (npccc == 2 && playercc == 0) {
+				ccbonus = 2;
+			}
+
+			else if (npccc == 3 && playercc == 0) {
+				ccbonus = -2;
+			}
+
+			else if (npccc == 4 && playercc == 0) {
+				ccbonus = -5;
+			}
+			
+			combat_player = rand.nextInt(20) + ATTACK_LEVEL + ccbonus;
+			combat_npc = rand.nextInt(20) + THREAT_LEVEL + npcdmg;
+			
+			if ( combat_player > combat_npc ) {
+				setContentView(R.layout.combatsummgood);
+
+				textView = (TextView) findViewById(R.id.MoveSumm);
+				
+				if (npccc == 0) {
+				textView.setText("[YOU] AGG vs AGG [ZOM] : 0");
+				}
+				else if (npccc == 1) {
+					textView.setText("[YOU] AGG vs NOR [ZOM] : +5");
+					}
+				else if (npccc == 2) {
+					textView.setText("[YOU] AGG vs WIT [ZOM] : +2");
+					}				
+				else if (npccc == 3) {
+					textView.setText("[YOU] AGG vs SNK [ZOM] : -2");
+					}
+				else if (npccc == 4) {
+					textView.setText("[YOU] AGG vs DEF [ZOM] : -5");
+					}
+				
+				ATTACK_LEVEL = ATTACK_LEVEL + 1;
+				
+				if (ATTACK_LEVEL > 10) {
+					ATTACK_LEVEL = 10;
+				}
+						
+				textView = (TextView) findViewById(R.id.CombatSummGood);
+				int rand_successmsg = rand.nextInt(3);				
+				
+				if (rand_successmsg == 0) {
+					textView.setText("You grab a sharp piece of metal pipe from the floor and ram it into the zombie's throat. It becomes stuck and a fountain of blood sprouts from the other end of the pipe. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}
+				else if (rand_successmsg == 1) {
+					textView.setText("You take a bulky stone from the ground and smash it into the zombies face. You hear bones breaking and a creepy squishy noise as blood shoots out of the zombie's head. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}
+				else if (rand_successmsg == 2) {
+					textView.setText("You see the very sharp end of a broken street sign stuck in the road. You maneuver yourself to the pole, wait for the zombie to charge at you and dodge away in the last second. The zombie is impaled on the pole. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}								
+
+				int loot_chance = rand.nextInt(2);				
+				
+				if (loot_chance == 0) {
+					textView = (TextView) findViewById(R.id.loot);
+					
+					int loot_type = rand.nextInt(3);
+					
+					if (loot_type == 0) {
+						
+						shotgun = shotgun + 1;
+						loot_string = "shotgun";	
+					}
+					else if (loot_type == 1) {
+						
+						axe = axe + 1;
+						loot_string = "axe";	
+					}
+					else if (loot_type == 2) {
+						
+						grenade = grenade + 1;
+						loot_string = "grenade";	
+					}
+					
+					textView.setText("Loot:" + loot_string);
+					
+				}
+				
+				View continueButton = findViewById(R.id.continue_button);
+				continueButton.setOnClickListener(this);
+				
+			}
+			else {
+				
+				setContentView(R.layout.combatsummbad);
+	
+				THREAT_LEVEL = THREAT_LEVEL + 1;
+				
+				if (THREAT_LEVEL > 9) {
+					
+					setContentView(R.layout.theend);
+					
+					textView = (TextView) findViewById(R.id.turns);
+					textView.setText("Total Turns: " + turns);
+					
+				}
+				else {
+						
+					textView = (TextView) findViewById(R.id.MoveSumm);
+					
+						if (npccc == 0) {
+						textView.setText("[YOU] AGG vs AGG [ZOM] : 0");
+						}
+						else if (npccc == 1) {
+							textView.setText("[YOU] AGG vs NOR [ZOM] : +5");
+							}
+						else if (npccc == 2) {
+							textView.setText("[YOU] AGG vs WIT [ZOM] : +2");
+							}				
+						else if (npccc == 3) {
+							textView.setText("[YOU] AGG vs SNK [ZOM] : -2");
+							}
+						else if (npccc == 4) {
+							textView.setText("[YOU] AGG vs DEF [ZOM] : -5");
+							}					
+					
+						textView = (TextView) findViewById(R.id.CombatSummBad);	
+						
+					int rand_successmsg = rand.nextInt(3);				
+					
+					if (rand_successmsg == 0) {
+						textView.setText("As you look for a weapon, the zombie manages to slam you in the back, smashing you into the ground. You see it closing in again as you get back to your feet...");	
+					}
+					else if (rand_successmsg == 1) {
+						textView.setText("You swing at the zombie with a stick that you found but it dodges your blow. While you are recovring the zombie rams into your side and takes you down...");	
+					}
+					else if (rand_successmsg == 2) {
+						textView.setText("The zombie is very fast and grapples your torso. It keeps rocking and biting until you topple over with it landing on top of you...");	
+					}												
+					
+				View continueButton = findViewById(R.id.continue_button_bad);
+				continueButton.setOnClickListener(this);
+				}
+			}
+		break;
+
+		case R.id.combat_nor:
+			
+			playercc = 1;
+			//npccc = rand.nextInt(5);
+			
+			if (npccc == 0 && playercc == 1) {
+				ccbonus = -5;
+			}
+
+			else if (npccc == 1 && playercc == 1) {
+				ccbonus = 0;
+			}
+			
+			else if (npccc == 2 && playercc == 1) {
+				ccbonus = 5;
+			}
+
+			else if (npccc == 3 && playercc == 1) {
+				ccbonus = 2;
+			}
+
+			else if (npccc == 4 && playercc == 1) {
+				ccbonus = -2;
+			}
+			
+			combat_player = rand.nextInt(20) + ATTACK_LEVEL + ccbonus;
+			combat_npc = rand.nextInt(20) + THREAT_LEVEL + npcdmg;
 			
 			if ( combat_player > combat_npc ) {
 				setContentView(R.layout.combatsummgood);
@@ -234,6 +497,24 @@ public class Game extends Activity implements OnClickListener {
 				if (ATTACK_LEVEL > 10) {
 					ATTACK_LEVEL = 10;
 				}
+				
+				textView = (TextView) findViewById(R.id.MoveSumm);
+				
+				if (npccc == 0) {
+				textView.setText("[YOU] NOR vs AGG [ZOM] : -5");
+				}
+				else if (npccc == 1) {
+					textView.setText("[YOU] NOR vs NOR [ZOM] : 0");
+					}
+				else if (npccc == 2) {
+					textView.setText("[YOU] NOR vs WIT [ZOM] : +5");
+					}				
+				else if (npccc == 3) {
+					textView.setText("[YOU] NOR vs SNK [ZOM] : +2");
+					}
+				else if (npccc == 4) {
+					textView.setText("[YOU] NOR vs DEF [ZOM] : -2");
+					}
 
 				textView = (TextView) findViewById(R.id.CombatSummGood);
 				int rand_successmsg = rand.nextInt(3);				
@@ -247,7 +528,34 @@ public class Game extends Activity implements OnClickListener {
 				else if (rand_successmsg == 2) {
 					textView.setText("You see the very sharp end of a broken street sign stuck in the road. You maneuver yourself to the pole, wait for the zombie to charge at you and dodge away in the last second. The zombie is impaled on the pole. Well done. You feel that you have learned something about combat. Time to start running again...");	
 				}								
-								
+
+				int loot_chance = rand.nextInt(2);				
+				
+				if (loot_chance == 0) {
+					textView = (TextView) findViewById(R.id.loot);
+					
+					int loot_type = rand.nextInt(3);
+					
+					if (loot_type == 0) {
+						
+						shotgun = shotgun + 1;
+						loot_string = "shotgun";	
+					}
+					else if (loot_type == 1) {
+						
+						axe = axe + 1;
+						loot_string = "axe";	
+					}
+					else if (loot_type == 2) {
+						
+						grenade = grenade + 1;
+						loot_string = "grenade";	
+					}
+					
+					textView.setText("Loot:" + loot_string);
+					
+				}
+				
 				View continueButton = findViewById(R.id.continue_button);
 				continueButton.setOnClickListener(this);
 				
@@ -255,7 +563,7 @@ public class Game extends Activity implements OnClickListener {
 			else {
 				
 				setContentView(R.layout.combatsummbad);
-				THREAT_LEVEL = THREAT_LEVEL + 1;
+				THREAT_LEVEL = THREAT_LEVEL + 1;		
 				
 				if (THREAT_LEVEL > 9) {
 					
@@ -266,6 +574,24 @@ public class Game extends Activity implements OnClickListener {
 					
 				}
 				else {
+
+					textView = (TextView) findViewById(R.id.MoveSumm);
+					
+					if (npccc == 0) {
+						textView.setText("[YOU] NOR vs AGG [ZOM] : -5");
+						}
+						else if (npccc == 1) {
+							textView.setText("[YOU] NOR vs NOR [ZOM] : 0");
+							}
+						else if (npccc == 2) {
+							textView.setText("[YOU] NOR vs WIT [ZOM] : +5");
+							}				
+						else if (npccc == 3) {
+							textView.setText("[YOU] NOR vs SNK [ZOM] : +2");
+							}
+						else if (npccc == 4) {
+							textView.setText("[YOU] NOR vs DEF [ZOM] : -2");
+							}
 					
 					textView = (TextView) findViewById(R.id.CombatSummBad);
 					int rand_successmsg = rand.nextInt(3);				
@@ -286,6 +612,463 @@ public class Game extends Activity implements OnClickListener {
 			}
 		break;
 
+		
+		case R.id.combat_wit:
+			
+			playercc = 2;
+			//npccc = rand.nextInt(5);
+			
+			if (npccc == 0 && playercc == 2) {
+				ccbonus = -2;
+			}
+
+			else if (npccc == 1 && playercc == 2) {
+				ccbonus = -5;
+			}
+			
+			else if (npccc == 2 && playercc == 2) {
+				ccbonus = 0;
+			}
+
+			else if (npccc == 3 && playercc == 2) {
+				ccbonus = 5;
+			}
+
+			else if (npccc == 4 && playercc == 2) {
+				ccbonus = 2;
+			}
+			
+			combat_player = rand.nextInt(20) + ATTACK_LEVEL + ccbonus;
+			combat_npc = rand.nextInt(20) + THREAT_LEVEL + npcdmg;
+			
+			if ( combat_player > combat_npc ) {
+				setContentView(R.layout.combatsummgood);
+				
+				ATTACK_LEVEL = ATTACK_LEVEL + 1;
+				
+				if (ATTACK_LEVEL > 10) {
+					ATTACK_LEVEL = 10;
+				}
+
+				textView = (TextView) findViewById(R.id.MoveSumm);
+				
+				if (npccc == 0) {
+				textView.setText("[YOU] WIT vs AGG [ZOM] : -2");
+				}
+				else if (npccc == 1) {
+					textView.setText("[YOU] WIT vs NOR [ZOM] : -5");
+					}
+				else if (npccc == 2) {
+					textView.setText("[YOU] WIT vs WIT [ZOM] : 0");
+					}				
+				else if (npccc == 3) {
+					textView.setText("[YOU] WIT vs SNK [ZOM] : 5");
+					}
+				else if (npccc == 4) {
+					textView.setText("[YOU] WIT vs DEF [ZOM] : 2");
+					}
+				
+				textView = (TextView) findViewById(R.id.CombatSummGood);
+				int rand_successmsg = rand.nextInt(3);				
+				
+				if (rand_successmsg == 0) {
+					textView.setText("You grab a sharp piece of metal pipe from the floor and ram it into the zombie's throat. It becomes stuck and a fountain of blood sprouts from the other end of the pipe. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}
+				else if (rand_successmsg == 1) {
+					textView.setText("You take a bulky stone from the ground and smash it into the zombies face. You hear bones breaking and a creepy squishy noise as blood shoots out of the zombie's head. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}
+				else if (rand_successmsg == 2) {
+					textView.setText("You see the very sharp end of a broken street sign stuck in the road. You maneuver yourself to the pole, wait for the zombie to charge at you and dodge away in the last second. The zombie is impaled on the pole. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}								
+
+				int loot_chance = rand.nextInt(2);				
+				
+				if (loot_chance == 0) {
+					textView = (TextView) findViewById(R.id.loot);
+					
+					int loot_type = rand.nextInt(3);
+					
+					if (loot_type == 0) {
+						
+						shotgun = shotgun + 1;
+						loot_string = "shotgun";	
+					}
+					else if (loot_type == 1) {
+						
+						axe = axe + 1;
+						loot_string = "axe";	
+					}
+					else if (loot_type == 2) {
+						
+						grenade = grenade + 1;
+						loot_string = "grenade";	
+					}
+					
+					textView.setText("Loot:" + loot_string);
+					
+				}
+				
+				View continueButton = findViewById(R.id.continue_button);
+				continueButton.setOnClickListener(this);
+				
+			}
+			else {
+				
+				setContentView(R.layout.combatsummbad);
+				THREAT_LEVEL = THREAT_LEVEL + 1;
+				
+				if (THREAT_LEVEL > 9) {
+					
+					setContentView(R.layout.theend);
+					
+					textView = (TextView) findViewById(R.id.turns);
+					textView.setText("Total Turns: " + turns);
+					
+				}
+				else {
+
+					textView = (TextView) findViewById(R.id.MoveSumm);
+					
+					if (npccc == 0) {
+					textView.setText("[YOU] WIT vs AGG [ZOM] : -2");
+					}
+					else if (npccc == 1) {
+						textView.setText("[YOU] WIT vs NOR [ZOM] : -5");
+						}
+					else if (npccc == 2) {
+						textView.setText("[YOU] WIT vs WIT [ZOM] : 0");
+						}				
+					else if (npccc == 3) {
+						textView.setText("[YOU] WIT vs SNK [ZOM] : 5");
+						}
+					else if (npccc == 4) {
+						textView.setText("[YOU] WIT vs DEF [ZOM] : 2");
+						}
+
+					
+					textView = (TextView) findViewById(R.id.CombatSummBad);
+					int rand_successmsg = rand.nextInt(3);				
+					
+					if (rand_successmsg == 0) {
+						textView.setText("As you look for a weapon, the zombie manages to slam you in the back, smashing you into the ground. You see it closing in again as you get back to your feet...");	
+					}
+					else if (rand_successmsg == 1) {
+						textView.setText("You swing at the zombie with a stick that you found but it dodges your blow. While you are recovring the zombie rams into your side and takes you down...");	
+					}
+					else if (rand_successmsg == 2) {
+						textView.setText("The zombie is very fast and grapples your torso. It keeps rocking and biting until you topple over with it landing on top of you...");	
+					}												
+					
+				View continueButton = findViewById(R.id.continue_button_bad);
+				continueButton.setOnClickListener(this);
+				}
+			}
+		break;
+
+		case R.id.combat_snk:
+			
+			playercc = 3;
+			//npccc = rand.nextInt(5);
+			
+			if (npccc == 0 && playercc == 3) {
+				ccbonus = 2;
+			}
+
+			else if (npccc == 1 && playercc == 3) {
+				ccbonus = -2;
+			}
+			
+			else if (npccc == 2 && playercc == 3) {
+				ccbonus = -5;
+			}
+
+			else if (npccc == 3 && playercc == 3) {
+				ccbonus = 0;
+			}
+
+			else if (npccc == 4 && playercc == 3) {
+				ccbonus = 5;
+			}
+			
+			combat_player = rand.nextInt(20) + ATTACK_LEVEL + ccbonus;
+			combat_npc = rand.nextInt(20) + THREAT_LEVEL + npcdmg;
+			
+			if ( combat_player > combat_npc ) {
+				setContentView(R.layout.combatsummgood);
+				
+				ATTACK_LEVEL = ATTACK_LEVEL + 1;
+				
+				if (ATTACK_LEVEL > 10) {
+					ATTACK_LEVEL = 10;
+				}
+
+				textView = (TextView) findViewById(R.id.MoveSumm);
+				
+				if (npccc == 0) {
+				textView.setText("[YOU] SNK vs AGG [ZOM] : 2");
+				}
+				else if (npccc == 1) {
+					textView.setText("[YOU] SNK vs NOR [ZOM] : -2");
+					}
+				else if (npccc == 2) {
+					textView.setText("[YOU] SNK vs WIT [ZOM] : -5");
+					}				
+				else if (npccc == 3) {
+					textView.setText("[YOU] SNK vs SNK [ZOM] : 0");
+					}
+				else if (npccc == 4) {
+					textView.setText("[YOU] SNK vs DEF [ZOM] : 5");
+					}
+
+				
+				textView = (TextView) findViewById(R.id.CombatSummGood);
+				int rand_successmsg = rand.nextInt(3);				
+				
+				if (rand_successmsg == 0) {
+					textView.setText("You grab a sharp piece of metal pipe from the floor and ram it into the zombie's throat. It becomes stuck and a fountain of blood sprouts from the other end of the pipe. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}
+				else if (rand_successmsg == 1) {
+					textView.setText("You take a bulky stone from the ground and smash it into the zombies face. You hear bones breaking and a creepy squishy noise as blood shoots out of the zombie's head. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}
+				else if (rand_successmsg == 2) {
+					textView.setText("You see the very sharp end of a broken street sign stuck in the road. You maneuver yourself to the pole, wait for the zombie to charge at you and dodge away in the last second. The zombie is impaled on the pole. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}								
+
+				int loot_chance = rand.nextInt(2);				
+				
+				if (loot_chance == 0) {
+					textView = (TextView) findViewById(R.id.loot);
+					
+					int loot_type = rand.nextInt(3);
+					
+					if (loot_type == 0) {
+						
+						shotgun = shotgun + 1;
+						loot_string = "shotgun";	
+					}
+					else if (loot_type == 1) {
+						
+						axe = axe + 1;
+						loot_string = "axe";	
+					}
+					else if (loot_type == 2) {
+						
+						grenade = grenade + 1;
+						loot_string = "grenade";	
+					}
+					
+					textView.setText("Loot:" + loot_string);
+					
+				}
+				
+				View continueButton = findViewById(R.id.continue_button);
+				continueButton.setOnClickListener(this);
+				
+			}
+			else {
+				
+				setContentView(R.layout.combatsummbad);
+				THREAT_LEVEL = THREAT_LEVEL + 1;
+				
+				if (THREAT_LEVEL > 9) {
+					
+					setContentView(R.layout.theend);
+					
+					textView = (TextView) findViewById(R.id.turns);
+					textView.setText("Total Turns: " + turns);
+					
+				}
+				else {
+
+					textView = (TextView) findViewById(R.id.MoveSumm);
+					
+					if (npccc == 0) {
+					textView.setText("[YOU] SNK vs AGG [ZOM] : 2");
+					}
+					else if (npccc == 1) {
+						textView.setText("[YOU] SNK vs NOR [ZOM] : -2");
+						}
+					else if (npccc == 2) {
+						textView.setText("[YOU] SNK vs WIT [ZOM] : -5");
+						}				
+					else if (npccc == 3) {
+						textView.setText("[YOU] SNK vs SNK [ZOM] : 0");
+						}
+					else if (npccc == 4) {
+						textView.setText("[YOU] SNK vs DEF [ZOM] : 5");
+						}
+
+					
+					textView = (TextView) findViewById(R.id.CombatSummBad);
+					int rand_successmsg = rand.nextInt(3);				
+					
+					if (rand_successmsg == 0) {
+						textView.setText("As you look for a weapon, the zombie manages to slam you in the back, smashing you into the ground. You see it closing in again as you get back to your feet...");	
+					}
+					else if (rand_successmsg == 1) {
+						textView.setText("You swing at the zombie with a stick that you found but it dodges your blow. While you are recovring the zombie rams into your side and takes you down...");	
+					}
+					else if (rand_successmsg == 2) {
+						textView.setText("The zombie is very fast and grapples your torso. It keeps rocking and biting until you topple over with it landing on top of you...");	
+					}												
+					
+				View continueButton = findViewById(R.id.continue_button_bad);
+				continueButton.setOnClickListener(this);
+				}
+			}
+		break;
+		
+		case R.id.combat_def:
+			
+			playercc = 4;
+			//npccc = rand.nextInt(5);
+			
+			if (npccc == 0 && playercc == 4) {
+				ccbonus = 5;
+			}
+
+			else if (npccc == 1 && playercc == 4) {
+				ccbonus = 2;
+			}
+			
+			else if (npccc == 2 && playercc == 4) {
+				ccbonus = -2;
+			}
+
+			else if (npccc == 3 && playercc == 4) {
+				ccbonus = -5;
+			}
+
+			else if (npccc == 4 && playercc == 4) {
+				ccbonus = 0;
+			}
+			
+			combat_player = rand.nextInt(20) + ATTACK_LEVEL + ccbonus;
+			combat_npc = rand.nextInt(20) + THREAT_LEVEL + npcdmg;
+			
+			if ( combat_player > combat_npc ) {
+				setContentView(R.layout.combatsummgood);
+				
+				ATTACK_LEVEL = ATTACK_LEVEL + 1;
+				
+				if (ATTACK_LEVEL > 10) {
+					ATTACK_LEVEL = 10;
+				}
+
+				textView = (TextView) findViewById(R.id.MoveSumm);
+				
+				if (npccc == 0) {
+				textView.setText("[YOU] DEF vs AGG [ZOM] : 5");
+				}
+				else if (npccc == 1) {
+					textView.setText("[YOU] DEF vs NOR [ZOM] : 2");
+					}
+				else if (npccc == 2) {
+					textView.setText("[YOU] DEF vs WIT [ZOM] : -2");
+					}				
+				else if (npccc == 3) {
+					textView.setText("[YOU] DEF vs SNK [ZOM] : -5");
+					}
+				else if (npccc == 4) {
+					textView.setText("[YOU] DEF vs DEF [ZOM] : 0");
+					}
+
+				
+				textView = (TextView) findViewById(R.id.CombatSummGood);
+				int rand_successmsg = rand.nextInt(3);				
+				
+				if (rand_successmsg == 0) {
+					textView.setText("You grab a sharp piece of metal pipe from the floor and ram it into the zombie's throat. It becomes stuck and a fountain of blood sprouts from the other end of the pipe. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}
+				else if (rand_successmsg == 1) {
+					textView.setText("You take a bulky stone from the ground and smash it into the zombies face. You hear bones breaking and a creepy squishy noise as blood shoots out of the zombie's head. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}
+				else if (rand_successmsg == 2) {
+					textView.setText("You see the very sharp end of a broken street sign stuck in the road. You maneuver yourself to the pole, wait for the zombie to charge at you and dodge away in the last second. The zombie is impaled on the pole. Well done. You feel that you have learned something about combat. Time to start running again...");	
+				}								
+
+				int loot_chance = rand.nextInt(2);				
+				
+				if (loot_chance == 0) {
+					textView = (TextView) findViewById(R.id.loot);
+					
+					int loot_type = rand.nextInt(3);
+					
+					if (loot_type == 0) {
+						
+						shotgun = shotgun + 1;
+						loot_string = "shotgun";	
+					}
+					else if (loot_type == 1) {
+						
+						axe = axe + 1;
+						loot_string = "axe";	
+					}
+					else if (loot_type == 2) {
+						
+						grenade = grenade + 1;
+						loot_string = "grenade";	
+					}
+					
+					textView.setText("Loot:" + loot_string);
+					
+				}
+				
+				View continueButton = findViewById(R.id.continue_button);
+				continueButton.setOnClickListener(this);
+				
+			}
+			else {
+				
+				setContentView(R.layout.combatsummbad);
+				THREAT_LEVEL = THREAT_LEVEL + 1;
+				
+				if (THREAT_LEVEL > 9) {
+					
+					setContentView(R.layout.theend);
+					
+					textView = (TextView) findViewById(R.id.turns);
+					textView.setText("Total Turns: " + turns);
+					
+				}
+				else {
+					
+					textView = (TextView) findViewById(R.id.MoveSumm);
+					
+					if (npccc == 0) {
+					textView.setText("[YOU] DEF vs AGG [ZOM] : 5");
+					}
+					else if (npccc == 1) {
+						textView.setText("[YOU] DEF vs NOR [ZOM] : 2");
+						}
+					else if (npccc == 2) {
+						textView.setText("[YOU] DEF vs WIT [ZOM] : -2");
+						}				
+					else if (npccc == 3) {
+						textView.setText("[YOU] DEF vs SNK [ZOM] : -5");
+						}
+					else if (npccc == 4) {
+						textView.setText("[YOU] DEF vs DEF [ZOM] : 0");
+						}
+					
+					textView = (TextView) findViewById(R.id.CombatSummBad);
+					int rand_successmsg = rand.nextInt(3);				
+					
+					if (rand_successmsg == 0) {
+						textView.setText("As you look for a weapon, the zombie manages to slam you in the back, smashing you into the ground. You see it closing in again as you get back to your feet...");	
+					}
+					else if (rand_successmsg == 1) {
+						textView.setText("You swing at the zombie with a stick that you found but it dodges your blow. While you are recovring the zombie rams into your side and takes you down...");	
+					}
+					else if (rand_successmsg == 2) {
+						textView.setText("The zombie is very fast and grapples your torso. It keeps rocking and biting until you topple over with it landing on top of you...");	
+					}												
+					
+				View continueButton = findViewById(R.id.continue_button_bad);
+				continueButton.setOnClickListener(this);
+				}
+			}
+		break;
 		
 		}
 	}
@@ -314,41 +1097,83 @@ public class Game extends Activity implements OnClickListener {
 	   private void startEncZero() {
 		   setContentView(R.layout.troubleahead);
 		   
+		   npccc = 3;
+		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
 		   
-		   textView = (TextView) findViewById(R.id.threatlevel);
-		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   }
 
 	   private void startEncOne() {
 		   setContentView(R.layout.roadblock);
 		   
+		   npccc = 1;
+		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
-		   
-		   textView = (TextView) findViewById(R.id.threatlevel);
-		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
 		   }
 	   
 	   private void startEncTwo() {
 		   setContentView(R.layout.planecrash);
 		   
+		   npccc = 2;
+		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
-		   
-		   textView = (TextView) findViewById(R.id.threatlevel);
-		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
 		   }
 	   
 	   private void startEncThree() {
 		   setContentView(R.layout.thebigone);
 		   
+		   npccc = 0;
+		   npcdmg = rand.nextInt(10);
+		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
-		   
-		   textView = (TextView) findViewById(R.id.threatlevel);
-		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
 		   }
 	   
 	   private void startEncFour() {
@@ -367,11 +1192,22 @@ public class Game extends Activity implements OnClickListener {
 	   private void startEncFive() {
 		   setContentView(R.layout.armydrones);
 		   
+		   npccc = 2;
+		   npcdmg = rand.nextInt(4);
+		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
-		   
-		   textView = (TextView) findViewById(R.id.threatlevel);
-		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
 		   }
 
 	   private void startEncSix() {
@@ -389,31 +1225,62 @@ public class Game extends Activity implements OnClickListener {
 	   private void startEncSeven() {
 		   setContentView(R.layout.thepark);
 		   
+		   npccc = 1;
+		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
-		   
-		   textView = (TextView) findViewById(R.id.threatlevel);
-		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
 		   }
 	   
 	   private void startEncEight() {
 		   setContentView(R.layout.theghetto);
 		   
+		   npccc = 0;
+		   npcdmg = rand.nextInt(2);
+		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
-		   
-		   textView = (TextView) findViewById(R.id.threatlevel);
-		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
 		   }
 	   
 	   private void startEncNine() {
 		   setContentView(R.layout.constructionsite);
 		   
+		   npccc = 2;
+		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
-		   
-		   textView = (TextView) findViewById(R.id.threatlevel);
-		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
 		   }
 
 	   private void startEncTen() {
@@ -422,7 +1289,6 @@ public class Game extends Activity implements OnClickListener {
 			View dirwestButton = findViewById(R.id.dir_west);
 			dirwestButton.setOnClickListener(this);
 
-			//THREAT_LEVEL = THREAT_LEVEL - 1;
 		   textView = (TextView) findViewById(R.id.threatlevel);
 		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   textView = (TextView) findViewById(R.id.turns);
@@ -430,13 +1296,24 @@ public class Game extends Activity implements OnClickListener {
 		   }
 	   
 	   private void startEncEleven() {
-		   setContentView(R.layout.backalley);
+		   setContentView(R.layout.graveyard);
+		   
+		   npccc = 1;
+		   npcdmg = rand.nextInt(5);
 		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
-		   
-		   textView = (TextView) findViewById(R.id.threatlevel);
-		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
 		   }
 
 	   private void startEncTwelve() {
@@ -445,7 +1322,6 @@ public class Game extends Activity implements OnClickListener {
 			View dirwestButton = findViewById(R.id.dir_west);
 			dirwestButton.setOnClickListener(this);
 
-			THREAT_LEVEL = THREAT_LEVEL - 1;
 		   textView = (TextView) findViewById(R.id.threatlevel);
 		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   textView = (TextView) findViewById(R.id.turns);
@@ -455,18 +1331,42 @@ public class Game extends Activity implements OnClickListener {
 	   private void startEncThirteen() {
 		   setContentView(R.layout.graveyard);
 		   
+		   npccc = 4;
+		   npcdmg = rand.nextInt(10);
+		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
-		   
-		   textView = (TextView) findViewById(R.id.threatlevel);
-		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
 		   }
 	   
 	   private void startEncFourteen() {
 		   setContentView(R.layout.ambush);
 		   
+		   npccc = 3;
+		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
 		   
 		   textView = (TextView) findViewById(R.id.threatlevel);
 		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
@@ -475,11 +1375,49 @@ public class Game extends Activity implements OnClickListener {
 	   private void startEncFifteen() {
 		   setContentView(R.layout.forest);
 		   
+		   npccc = 2;
+		   npcdmg = rand.nextInt(3);
+		   
 			View combataggButton = findViewById(R.id.combat_agg);
 			combataggButton.setOnClickListener(this);
+			View combatnorButton = findViewById(R.id.combat_nor);
+			combatnorButton.setOnClickListener(this);
+			View combatwitButton = findViewById(R.id.combat_wit);
+			combatwitButton.setOnClickListener(this);
+			View combatsnkButton = findViewById(R.id.combat_snk);
+			combatsnkButton.setOnClickListener(this);
+			View combatdefButton = findViewById(R.id.combat_def);
+			combatdefButton.setOnClickListener(this);
+			
+			View combatinvButton = findViewById(R.id.combatinventory);
+			combatinvButton.setOnClickListener(this);
+		   }
+	   
+	   private void ShotgunBlast() {
+		   setContentView(R.layout.shotgunblast);
 		   
-		   textView = (TextView) findViewById(R.id.threatlevel);
-		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
+		    shotgun = shotgun - 1;
+			View continueButton = findViewById(R.id.continue_button);
+			continueButton.setOnClickListener(this);
+		   
+		   }
+
+	   private void AxeSwing() {
+		   setContentView(R.layout.axeswing);
+		   
+		    axe = axe - 1;
+			View continueButton = findViewById(R.id.continue_button);
+			continueButton.setOnClickListener(this);
+		   
+		   }
+	   
+	   private void GrenadeChuck() {
+		   setContentView(R.layout.grenadechuck);
+		   
+		    grenade = grenade - 1;
+			View continueButton = findViewById(R.id.continue_button);
+			continueButton.setOnClickListener(this);
+		   
 		   }
 	   
 	   @Override

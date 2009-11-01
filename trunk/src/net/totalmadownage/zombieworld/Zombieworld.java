@@ -8,12 +8,10 @@ import android.view.View.OnClickListener;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.util.Log;
 
 public class Zombieworld extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -25,6 +23,8 @@ public class Zombieworld extends Activity implements OnClickListener {
 	newButton.setOnClickListener(this);
 	View aboutButton = findViewById(R.id.about_button);
 	aboutButton.setOnClickListener(this);
+	View websiteButton = findViewById(R.id.website_button);
+	websiteButton.setOnClickListener(this);
 	View exitButton = findViewById(R.id.exit_button);
 	exitButton.setOnClickListener(this);
 	}
@@ -34,6 +34,10 @@ public class Zombieworld extends Activity implements OnClickListener {
 		case R.id.about_button:
 		Intent i = new Intent(this, About.class);
 		startActivity(i);
+		break;
+		case R.id.website_button:
+			Intent e = new Intent(this, Website.class);
+			startActivity(e);
 		break;
 		// More buttons go here (if any) ...
 		case R.id.new_button:

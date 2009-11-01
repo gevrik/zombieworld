@@ -54,6 +54,18 @@ android:layout_gravity="center_horizontal" >
 
 </TableRow>
 
+<TableRow>
+
+	<ImageButton
+	android:id="@+id/combatinventory"
+	android:layout_width="150px"
+	android:layout_height="38px"
+	android:src="@drawable/inventory"
+	android:background="@drawable/inventory"
+	/>
+
+</TableRow>
+
 </TableLayout>
 
 <TextView android:id="@+id/threatlevel"

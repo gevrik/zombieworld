@@ -48,9 +48,16 @@ android:layout_gravity="center_horizontal" >
 	android:id="@+id/dir_west"
 	android:layout_width="150px"
 	android:layout_height="38px"
-	android:layout_marginRight="5dip"
 	android:src="@drawable/dir_west"
 	android:background="@drawable/dir_west"
+	/>
+	
+	<ImageButton
+	android:id="@+id/inventory"
+	android:layout_width="150px"
+	android:layout_height="38px"
+	android:src="@drawable/inventory"
+	android:background="@drawable/inventory"
 	/>
 
 </TableRow>

@@ -39,6 +39,16 @@ android:layout_gravity="center" >
 	android:src="@drawable/mm_about"
 	android:background="@drawable/mm_about"
 	/>
+	
+	<ImageButton
+	android:id="@+id/website_button"
+	android:layout_width="150px"
+	android:layout_height="38px"
+	android:layout_gravity="center_horizontal"
+	android:layout_marginBottom="10dip"
+	android:src="@drawable/mm_website"
+	android:background="@drawable/mm_website"
+	/>
 
 	<ImageButton
 	android:id="@+id/exit_button"

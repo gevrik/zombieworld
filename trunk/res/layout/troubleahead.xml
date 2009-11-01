@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:background="@color/background"
+android:layout_height="fill_parent"
+android:layout_width="fill_parent"
+android:padding="10dip"
+android:orientation="horizontal" >
+
+<LinearLayout
+android:orientation="vertical"
+android:layout_height="fill_parent"
+android:layout_width="fill_parent"
+android:layout_gravity="top" >
+
+     <ImageView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center_horizontal"
+     android:src="@drawable/head_troubleahead"
+     />
+
+     <ImageView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center_horizontal"
+     android:layout_marginBottom="5dip"
+     android:src="@drawable/enc_troubleahead"
+     />
+
+<TextView
+android:id="@+id/about_content"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginBottom="5dip"
+android:layout_marginRight="10dip"
+android:text="@string/troubleahead_text" />
+
+<TableLayout
+android:layout_height="wrap_content"
+android:layout_width="wrap_content"
+android:layout_gravity="center_horizontal" >
+
+<TableRow>
+     
+    <ImageButton
+	android:id="@+id/combat_agg"
+	android:layout_width="150px"
+	android:layout_height="38px"
+	android:layout_marginRight="5dip"
+	android:src="@drawable/combat_agg"
+	android:background="@drawable/combat_agg"
+	/>
+
+</TableRow>
+
+</TableLayout>
+
+<TextView android:id="@+id/threatlevel"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:gravity="center_horizontal"
+android:layout_marginTop="20px"
+android:textSize="20px"/> 
+
+</LinearLayout>
+</LinearLayout>

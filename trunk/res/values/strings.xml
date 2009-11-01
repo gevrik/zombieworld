@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Zombieworld</string>
+<string name="main_title">Zombieworld</string>
+<string name="continue_label">Continue</string>
+<string name="new_game_label">New Game</string>
+<string name="about_label">About</string>
+<string name="exit_label">Exit</string>
+<string name="pushback_text">Press back button to try again.</string>
+
+<string name="about_title">About Zombieworld</string>
+<string name="about_text">\
+Zombieworld is a strategy game with role-playing
+elements. You play a survivor that has to fight
+his or her way through hordes of zombies to 
+escape the city. More Info at:
+www.totalmadownage.net
+Idea, design and programming: Heiko Jacobs
+Audio: Adam Bond
+</string>
+
+<string name="CombatSummGood_title">Combat Summary</string>
+<string name="CombatSummGood_text">\
+You grab a sharp piece of metal pipe from the floor and ram it into the zombie's throat. It becomes stuck and a fountain of blood sprouts from the other end of the pipe. Well done. You feel that you have learned something about combat. Time to start running again...
+</string>
+
+<string name="CombatSummBad_title">Combat Summary</string>
+<string name="CombatSummBad_text">\
+As you look for a weapon, the zombie manages to slam you in the back, smashing you into the ground.
+You see it closing in again as you get back to your feet...
+</string>
+
+<string name="breathingspace_text">\
+This city is a mess. Burning cars, busses, trucks and corpses litter this eerily quiet street.
+Zombies are closing in on you from all sides, but they have not caught up with you yet.
+Better start running...
+</string>
+
+<string name="troubleahead_text">\
+Somehow one of the zombies has managed to surprise you. It was already too late when you first heard it. After turning around, you look straight into a bloody mess of a face.
+</string>
+
+<string name="roadblock_text">\
+This busy main street is in total chaos. There was a huge accident which left the road blocked. Zombies are everywhere, dragging corpses and injured out of the car wrecks to feast on them. One of them spots you...
+</string>
+
+<string name="planecrash_text">\
+A small two-seater plane has crashed in this small lake inside a little park. The place is a complete mess. The pilot seemed to have suddenly turned into a zombie and is now shambling towards you...
+</string>
+
+<string name="thebigone_text">\
+As you stumble into this industrial area of the city, a giant zombie who must have been a heavy lifter in his life-time comes charging out one of the factory buildings. Better prepare yourself...
+</string>
+
+<string name="airstrike_text">\
+Uncle Sam to the rescue! Just as you run onto this main shopping street and look upon a sea of zombies in front of you, the thundering sounds of jet engines drone above you, followed by several explosions which clear the way in front of you by causing a cloud of blood, limbs and intestines.
+</string>
+
+<string name="armydrones_text">\
+This big inner city street had been secured by the national guard when the infection started. As some uniformed zombies come charging at you, you realise that unfortunately there were a lot more zombies than bullets...
+</string>
+
+<string name="refuge_text">\
+Lady luck is on your side. Just as a group of crazy former gang member zombies flank you from the side, you spot a door into a secure building that is open. This will allow you to put some distance between you and the horde that is chasing you.
+</string>
+
+<string name="thepark_text">\
+You stumble as you jump over the gates of a big park. As you look up again, you see a few zombies closing in on you, murder written on their deformed and gory faces. Better get rid of them quickly...
+</string>
+
+<string name="theghetto_text">\
+You have run into a ghetto district of the city. You decide to dash into the smaller alleys between the run-down buildings. As soon as you pass your first corner a group of zombies comes running towards you... 
+</string>
+
+<string name="constructionsite_text">\
+Running onto this construction site for a corporate skyscraper seemed to be a good idea at first, but as you run across the basement access ramp a zombie jumps on your back from the construction crane above you...
+</string>
+
+<string name="holidayresort_text">\
+You come across a small holiday resort near a once beautiful lake that now has a red tint from all the corpses swimming in it. A lot of zombies shamble around the holiday cottages. Some other, armed survivors are here and will follow you for a short time...
+</string>
+
+<string name="theend_text">\
+This is the end, my friend... The zombie horde has caught up with you. Hundreds of zombies surround you on all sides, screaming and spouting gibberish. Your vision fades as they push you to the ground and start to gnaw on your bones...
+</string>
+
+<string name="backalley_text">\
+You run into a small back alley in a shady part of the city and surprise a zombie as it is feasting on a poor beggar. You quickly grab a baseball bat from the floor and begin to pound on the zombie, smashing a part of its torso...
+</string>
+
+<string name="club69_text">\
+You hear music coming from a big night club in front of you. As you approach, the door opens and an armed bouncer lets you in. You have a few seconds to get some supplies and catch your breath before the horde bashes in the front door and comes pouring in...
+</string>
+
+<string name="graveyard_text">\
+You curse as you realise that you ran into a graveyard. Bad idea during a zombie invasion, considering the hordes of undead that occupy this graveyard. You will have to be very swift in getting rid of this bunch if you want to live...
+</string>
+
+<string name="ambush_text">\
+Atfer a failed attempt at sneaking past a group of zombies and only narrowly escaping into a nearby building. You quickly run through the empty house towards the balcony door. As you step through a zombies fist connects with your head.
+</string>
+
+<string name="forest_text">\
+You ran into a dark forest that is crawling with zombies. You see some groups of them ripping apart some of the animals. The birds cackle an insane overture in the sky above you. Better move on before they spot you. Too late...
+</string>
+
+<string name="settings_label">SETTINGS</string>
+<string name="settings_title">Zombieworld Settings</string>
+<string name="settings_shortcut">s</string>
+<string name="music_title">Music</string>
+<string name="music_summary">Play background music</string>
+<string name="hints_title">Hints</string>
+<string name="hints_summary">Show hints during play</string>
+
+<string name="new_game_title">DIFFICULTY</string>
+<string name="easy_label">Easy</string>
+<string name="medium_label">Medium</string>
+<string name="hard_label">Hard</string>
+
+<string name="new_move_title">ENTRY TYPE</string>
+<string name="sneaky_label">Sneaky (+1 Initiative)</string>
+<string name="normal_label">Normal (+1 Luck)</string>
+<string name="storm_label">Aggressive (+1 Attack)</string>
+
+<string name="game_title">Zombieworld</string>
+
+<string name="char_level">LVL: </string>
+<string name="char_initiative">INI: </string>
+<string name="char_attack">ATK: </string>
+<string name="char_luck">LCK: </string>
+<string name="char_health">HLT: </string>
+
+</resources>

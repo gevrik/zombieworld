@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:background="@drawable/menu_bg"
+android:layout_height="fill_parent"
+android:layout_width="fill_parent"
+android:padding="30dip"
+android:orientation="horizontal" >
+
+<LinearLayout
+android:orientation="vertical"
+android:layout_height="wrap_content"
+android:layout_width="fill_parent"
+android:layout_gravity="center" >
+
+    <ImageView
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent"
+     android:scaleType="fitCenter"
+     android:src="@drawable/zombieworld"
+     />
+
+	<ImageButton
+	android:id="@+id/new_button"
+	android:layout_width="150px"
+	android:layout_height="38px"
+	android:layout_gravity="center_horizontal"
+	android:layout_marginBottom="10dip"
+	android:src="@drawable/mm_newgame"
+	android:background="@drawable/mm_newgame"
+	/>
+	
+	<ImageButton
+	android:id="@+id/about_button"
+	android:layout_width="150px"
+	android:layout_height="38px"
+	android:layout_gravity="center_horizontal"
+	android:layout_marginBottom="10dip"
+	android:src="@drawable/mm_about"
+	android:background="@drawable/mm_about"
+	/>
+
+	<ImageButton
+	android:id="@+id/exit_button"
+	android:layout_width="150px"
+	android:layout_height="38px"
+	android:layout_gravity="center_horizontal"
+	android:src="@drawable/mm_exit"
+	android:background="@drawable/mm_exit"
+	/>
+
+</LinearLayout>
+</LinearLayout>

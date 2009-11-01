@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:background="@color/background"
+android:layout_height="fill_parent"
+android:layout_width="fill_parent"
+android:padding="10dip"
+android:orientation="horizontal" >
+
+<LinearLayout
+android:orientation="vertical"
+android:layout_height="wrap_content"
+android:layout_width="fill_parent"
+android:layout_gravity="center" >
+
+     <ImageView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center_horizontal"
+     android:layout_marginBottom="5dip"
+     android:src="@drawable/enc_theend"
+     />
+
+<TextView
+android:id="@+id/TheEnd"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
+android:text="@string/theend_text" />
+
+<TextView android:id="@+id/turns"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:gravity="center_horizontal"
+android:layout_marginTop="20px"
+android:textSize="20px"/> 
+
+<TextView
+android:id="@+id/PushBack"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
+android:text="@string/pushback_text" />
+
+</LinearLayout>
+</LinearLayout>

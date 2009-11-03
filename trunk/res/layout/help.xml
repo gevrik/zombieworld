@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:id="@+id/widget54"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="5px" android:paddingRight="5px" android:paddingTop="5px" android:paddingBottom="5px">
+    <LinearLayout
+        android:layout_width="310px"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+<TextView
+android:id="@+id/help_texta"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="@string/help_texta" />
+
+<TextView
+android:id="@+id/controls_help"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="@string/controls_help" android:layout_marginTop="5px" android:textStyle="bold"/>
+
+<TextView
+android:id="@+id/help_textb"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="@string/help_textb" android:layout_marginTop="5px" android:textSize="12px"/>
+
+<TextView
+android:id="@+id/combat_help"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="@string/combat_help" android:layout_marginTop="5px" android:textStyle="bold"/>
+
+<TextView
+android:id="@+id/help_textc"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="@string/help_textc" android:layout_marginTop="5px" android:textSize="12px"/>
+
+<TextView
+android:id="@+id/help_textd"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="@string/help_textd" android:layout_marginTop="5px" android:textSize="12px"/>
+    </LinearLayout>
+</ScrollView>

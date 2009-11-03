@@ -23,6 +23,8 @@ public class Zombieworld extends Activity implements OnClickListener {
 	newButton.setOnClickListener(this);
 	View aboutButton = findViewById(R.id.about_button);
 	aboutButton.setOnClickListener(this);
+	View helpButton = findViewById(R.id.help_button);
+	helpButton.setOnClickListener(this);
 	View websiteButton = findViewById(R.id.website_button);
 	websiteButton.setOnClickListener(this);
 	View exitButton = findViewById(R.id.exit_button);
@@ -34,6 +36,10 @@ public class Zombieworld extends Activity implements OnClickListener {
 		case R.id.about_button:
 		Intent i = new Intent(this, About.class);
 		startActivity(i);
+		break;
+		case R.id.help_button:
+			Intent f = new Intent(this, Help.class);
+			startActivity(f);
 		break;
 		case R.id.website_button:
 			Intent e = new Intent(this, Website.class);

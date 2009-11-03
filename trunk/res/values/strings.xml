@@ -15,8 +15,41 @@ elements. You play a survivor that has to fight
 his or her way through hordes of zombies to 
 escape the city. More Info at:
 www.totalmadownage.net
-Idea, design and programming: Heiko Jacobs
-Audio: Adam Bond
+</string>
+
+<string name="help_title">About Zombieworld</string>
+<string name="help_texta">\
+You are a survivor in a zombie apocalypse. When it started you just arrived in a big and to you unfamiliar city and now have to run for your life.
+</string>
+
+<string name="controls_help">Controls</string>
+
+<string name="help_textb">\
+Press the MENU BUTTON to change change settings or to see you character sheet and inventory.
+Press RUN to start running from the horde.
+THREAT LEVEL shows how close the horde is to you.
+ATTACK LEVEL shows how good you have become at combat.
+SCORE shows how many turns you have survived.
+</string>
+
+<string name="combat_help">Combat</string>
+
+<string name="help_textc">\
+AGG is AGGressive tactic
+NOR is NORmal tactic
+WIT is WITty tactic
+SNK is SNeaKy tactic
+DEF is DEFensive tactic
+
+You can also open your INVentory and use an item that you found.
+The Combat Summary screen gives you information about how well (or bad) your tactic worked in an encounter.
+Some encounters are a lot tougher than others, so use your items wisely.
+</string>
+
+<string name="help_textd">\
+You can also open your INVentory and use an item that you found.
+The Combat Summary screen gives you information about how well (or bad) your tactic worked in an encounter.
+Some encounters are a lot tougher than others, so use your items wisely.
 </string>
 
 <string name="CombatSummGood_title">Combat Summary</string>
@@ -105,9 +138,11 @@ Atfer a failed attempt at sneaking past a group of zombies and only narrowly esc
 You ran into a dark forest that is crawling with zombies. You see some groups of them ripping apart some of the animals. The birds cackle an insane overture in the sky above you. Better move on before they spot you. Too late...
 </string>
 
-<string name="settings_label">SETTINGS</string>
+<string name="settings_label">Options</string>
 <string name="settings_title">Zombieworld Settings</string>
 <string name="settings_shortcut">s</string>
+<string name="character_shortcut">c</string>
+<string name="minventory_shortcut">i</string>
 <string name="music_title">Music</string>
 <string name="music_summary">Play background music</string>
 <string name="hints_title">Hints</string>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:background="@color/background"
+android:layout_height="fill_parent"
+android:layout_width="fill_parent"
+android:padding="10dip"
+android:orientation="horizontal" >
+
+<LinearLayout
+android:orientation="vertical"
+android:layout_height="wrap_content"
+android:layout_width="fill_parent"
+android:layout_gravity="center" >
+
+     <ImageView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center_horizontal"
+     android:src="@drawable/head_charsheet"
+     />
+
+<TextView
+android:id="@+id/charlevel"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
+android:layout_marginTop="10px"
+android:textSize="15px" />
+
+<TextView
+android:id="@+id/charexp"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
+android:layout_marginTop="10px"
+android:textSize="15px" />
+
+<TextView
+android:id="@+id/charatt"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
+android:layout_marginTop="10px"
+android:textSize="15px" />
+
+<TextView
+android:id="@+id/chardef"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
+android:layout_marginTop="10px"
+android:textSize="15px" />
+
+<Button
+android:id="@+id/continue_button_bad"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
+android:layout_marginTop="10px"
+android:text="@string/continue_label" />
+
+
+</LinearLayout>
+</LinearLayout>

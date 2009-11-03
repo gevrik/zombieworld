@@ -30,11 +30,13 @@ android:layout_gravity="top" >
 
 <TextView
 android:id="@+id/about_content"
-android:layout_width="wrap_content"
+android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:layout_marginBottom="5dip"
 android:layout_marginRight="10dip"
-android:text="@string/armydrones_text" />
+android:textSize="12px"
+android:text="@string/armydrones_text" 
+/>
 
 <TableLayout
 android:layout_height="wrap_content"
@@ -92,6 +94,7 @@ android:layout_gravity="center_horizontal" >
 	android:layout_width="150px"
 	android:layout_height="38px"
 	android:src="@drawable/inventory"
+	android:layout_gravity="center_horizontal"
 	android:background="@drawable/inventory"
 	/>
 

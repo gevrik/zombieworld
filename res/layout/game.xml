@@ -52,14 +52,6 @@ android:layout_gravity="center_horizontal" >
 	android:background="@drawable/dir_west"
 	/>
 	
-	<ImageButton
-	android:id="@+id/inventory"
-	android:layout_width="150px"
-	android:layout_height="38px"
-	android:src="@drawable/inventory"
-	android:background="@drawable/inventory"
-	/>
-
 </TableRow>
 
 </TableLayout>
@@ -69,7 +61,7 @@ android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:gravity="center_horizontal"
 android:textColor="#FF0000"
-android:layout_marginTop="10px"
+android:layout_marginTop="5px"
 android:textSize="15px"/> 
 
 <TextView android:id="@+id/attacklevel"
@@ -77,14 +69,14 @@ android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:gravity="center_horizontal"
 android:textColor="#00FF00"
-android:layout_marginTop="10px"
+android:layout_marginTop="5px"
 android:textSize="15px"/> 
 
 <TextView android:id="@+id/turns"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:gravity="center_horizontal"
-android:layout_marginTop="10px"
+android:layout_marginTop="5px"
 android:textSize="15px"/> 
 
 </LinearLayout>

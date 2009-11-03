@@ -22,9 +22,17 @@ public class Game extends Activity implements OnClickListener {
 	   public int DEFENSE_LEVEL = 0;
 	   public int currentenc = 0;
 	   public int turns = 0;
+
 	   public int shotgun = 0;
 	   public int axe = 0;
 	   public int grenade = 0;
+	   public int money = 0;
+	   
+	   public int randmoney = 0;
+	   
+	   public int charexp = 0;
+	   public int charlvl = 1;
+	   public int pwrtmr = 0;
 	   
 	   public int playercc = 0;
 	   public int npccc = 0;
@@ -53,25 +61,25 @@ public class Game extends Activity implements OnClickListener {
 	if (THREAT_LEVEL > 9) {
 	
 		setContentView(R.layout.theend);
+		currentenc = 98;
 		textView = (TextView) findViewById(R.id.turns);
-		textView.setText("Total Turns: " + turns);
+		textView.setText("Score: " + turns);
 		
 	}
-				
+
+	currentenc = 99;
+
 	setContentView(R.layout.game);
 	// Set up click listeners for all the buttons
 	View dirwestButton = findViewById(R.id.dir_west);
 	dirwestButton.setOnClickListener(this);
 	
-	View invButton = findViewById(R.id.inventory);
-	invButton.setOnClickListener(this);
-		
 	textView = (TextView) findViewById(R.id.threatlevel);
 	textView.setText("Threat Level: " + THREAT_LEVEL + "/10");	
 	textView = (TextView) findViewById(R.id.attacklevel);
 	textView.setText("Attack Level: " + ATTACK_LEVEL + "/10");
 	textView = (TextView) findViewById(R.id.turns);
-	textView.setText("Turns: " + turns);
+	textView.setText("Score: " + turns);
 	}
 	
 	private void Inventory() {
@@ -90,6 +98,8 @@ public class Game extends Activity implements OnClickListener {
 		textView.setText("Axe: " + axe);
 		textView = (TextView) findViewById(R.id.AmountGrenade);
 		textView.setText("Grenade : " + grenade);
+		textView = (TextView) findViewById(R.id.AmountMoney);
+		textView.setText("Money : " + money + "$");
 		
 		}
 	
@@ -135,9 +145,6 @@ public class Game extends Activity implements OnClickListener {
 		case R.id.combatinventory:
 			CombatInventory();
 		break;
-		case R.id.inventory:
-		Inventory();
-		break;
 		
 		case R.id.shotgun_button:
 			ShotgunBlast();
@@ -156,9 +163,10 @@ public class Game extends Activity implements OnClickListener {
 			if (THREAT_LEVEL > 9) {
 				
 				setContentView(R.layout.theend);
+				currentenc = 98;
 				
 				textView = (TextView) findViewById(R.id.turns);
-				textView.setText("Total Turns: " + turns);
+				textView.setText("Score: " + turns);
 				
 			}
 			
@@ -211,6 +219,12 @@ public class Game extends Activity implements OnClickListener {
 			}
 			else if ( currentenc == 15 ) {
 				startEncFifteen();
+			}
+			else if ( currentenc == 99 ) {
+				BreathingSpace();
+			}
+			else if ( currentenc == 98 ) {
+				finish();
 			}
 			}
 			
@@ -358,6 +372,12 @@ public class Game extends Activity implements OnClickListener {
 					}
 				
 				ATTACK_LEVEL = ATTACK_LEVEL + 1;
+				charexp = charexp + ((npcdmg + 1) * 20) ;
+				
+				if (charexp >= (charlvl * 500)) {
+					charlvl = charlvl + 1;
+					charexp = 0;
+				}
 				
 				if (ATTACK_LEVEL > 10) {
 					ATTACK_LEVEL = 10;
@@ -381,7 +401,7 @@ public class Game extends Activity implements OnClickListener {
 				if (loot_chance == 0) {
 					textView = (TextView) findViewById(R.id.loot);
 					
-					int loot_type = rand.nextInt(3);
+					int loot_type = rand.nextInt(4);
 					
 					if (loot_type == 0) {
 						
@@ -397,6 +417,13 @@ public class Game extends Activity implements OnClickListener {
 						
 						grenade = grenade + 1;
 						loot_string = "grenade";	
+					}
+					else if (loot_type == 3) {
+						
+						randmoney = rand.nextInt(11);
+						money = money + randmoney;
+						
+						loot_string = randmoney  + "$";	
 					}
 					
 					textView.setText("Loot:" + loot_string);
@@ -416,9 +443,10 @@ public class Game extends Activity implements OnClickListener {
 				if (THREAT_LEVEL > 9) {
 					
 					setContentView(R.layout.theend);
+					currentenc = 98;
 					
 					textView = (TextView) findViewById(R.id.turns);
-					textView.setText("Total Turns: " + turns);
+					textView.setText("Score: " + turns);
 					
 				}
 				else {
@@ -493,6 +521,12 @@ public class Game extends Activity implements OnClickListener {
 				setContentView(R.layout.combatsummgood);
 				
 				ATTACK_LEVEL = ATTACK_LEVEL + 1;
+				charexp = charexp + ((npcdmg + 1) * 20) ;
+				
+				if (charexp >= (charlvl * 500)) {
+					charlvl = charlvl + 1;
+					charexp = 0;
+				}
 				
 				if (ATTACK_LEVEL > 10) {
 					ATTACK_LEVEL = 10;
@@ -534,7 +568,7 @@ public class Game extends Activity implements OnClickListener {
 				if (loot_chance == 0) {
 					textView = (TextView) findViewById(R.id.loot);
 					
-					int loot_type = rand.nextInt(3);
+					int loot_type = rand.nextInt(4);
 					
 					if (loot_type == 0) {
 						
@@ -550,6 +584,13 @@ public class Game extends Activity implements OnClickListener {
 						
 						grenade = grenade + 1;
 						loot_string = "grenade";	
+					}
+					else if (loot_type == 3) {
+						
+						randmoney = rand.nextInt(11);
+						money = money + randmoney;
+						
+						loot_string = randmoney  + "$";	
 					}
 					
 					textView.setText("Loot:" + loot_string);
@@ -569,9 +610,11 @@ public class Game extends Activity implements OnClickListener {
 					
 					setContentView(R.layout.theend);
 					
-					textView = (TextView) findViewById(R.id.turns);
-					textView.setText("Total Turns: " + turns);
+					currentenc = 98;
 					
+					textView = (TextView) findViewById(R.id.turns);
+					textView.setText("Score: " + turns);
+										
 				}
 				else {
 
@@ -645,6 +688,12 @@ public class Game extends Activity implements OnClickListener {
 				setContentView(R.layout.combatsummgood);
 				
 				ATTACK_LEVEL = ATTACK_LEVEL + 1;
+				charexp = charexp + ((npcdmg + 1) * 20) ;
+				
+				if (charexp >= (charlvl * 500)) {
+					charlvl = charlvl + 1;
+					charexp = 0;
+				}
 				
 				if (ATTACK_LEVEL > 10) {
 					ATTACK_LEVEL = 10;
@@ -686,7 +735,7 @@ public class Game extends Activity implements OnClickListener {
 				if (loot_chance == 0) {
 					textView = (TextView) findViewById(R.id.loot);
 					
-					int loot_type = rand.nextInt(3);
+					int loot_type = rand.nextInt(4);
 					
 					if (loot_type == 0) {
 						
@@ -702,6 +751,13 @@ public class Game extends Activity implements OnClickListener {
 						
 						grenade = grenade + 1;
 						loot_string = "grenade";	
+					}
+					else if (loot_type == 3) {
+						
+						randmoney = rand.nextInt(11);
+						money = money + randmoney;
+						
+						loot_string = randmoney  + "$";	
 					}
 					
 					textView.setText("Loot:" + loot_string);
@@ -721,8 +777,10 @@ public class Game extends Activity implements OnClickListener {
 					
 					setContentView(R.layout.theend);
 					
+					currentenc = 98;
+					
 					textView = (TextView) findViewById(R.id.turns);
-					textView.setText("Total Turns: " + turns);
+					textView.setText("Score: " + turns);
 					
 				}
 				else {
@@ -797,6 +855,12 @@ public class Game extends Activity implements OnClickListener {
 				setContentView(R.layout.combatsummgood);
 				
 				ATTACK_LEVEL = ATTACK_LEVEL + 1;
+				charexp = charexp + ((npcdmg + 1) * 20) ;
+				
+				if (charexp >= (charlvl * 500)) {
+					charlvl = charlvl + 1;
+					charexp = 0;
+				}
 				
 				if (ATTACK_LEVEL > 10) {
 					ATTACK_LEVEL = 10;
@@ -839,7 +903,7 @@ public class Game extends Activity implements OnClickListener {
 				if (loot_chance == 0) {
 					textView = (TextView) findViewById(R.id.loot);
 					
-					int loot_type = rand.nextInt(3);
+					int loot_type = rand.nextInt(4);
 					
 					if (loot_type == 0) {
 						
@@ -855,6 +919,13 @@ public class Game extends Activity implements OnClickListener {
 						
 						grenade = grenade + 1;
 						loot_string = "grenade";	
+					}
+					else if (loot_type == 3) {
+						
+						randmoney = rand.nextInt(11);
+						money = money + randmoney;
+						
+						loot_string = randmoney  + "$";	
 					}
 					
 					textView.setText("Loot:" + loot_string);
@@ -873,9 +944,10 @@ public class Game extends Activity implements OnClickListener {
 				if (THREAT_LEVEL > 9) {
 					
 					setContentView(R.layout.theend);
+					currentenc = 98;
 					
 					textView = (TextView) findViewById(R.id.turns);
-					textView.setText("Total Turns: " + turns);
+					textView.setText("Score: " + turns);
 					
 				}
 				else {
@@ -950,6 +1022,12 @@ public class Game extends Activity implements OnClickListener {
 				setContentView(R.layout.combatsummgood);
 				
 				ATTACK_LEVEL = ATTACK_LEVEL + 1;
+				charexp = charexp + ((npcdmg + 1) * 20) ;
+				
+				if (charexp >= (charlvl * 500)) {
+					charlvl = charlvl + 1;
+					charexp = 0;
+				}
 				
 				if (ATTACK_LEVEL > 10) {
 					ATTACK_LEVEL = 10;
@@ -992,7 +1070,7 @@ public class Game extends Activity implements OnClickListener {
 				if (loot_chance == 0) {
 					textView = (TextView) findViewById(R.id.loot);
 					
-					int loot_type = rand.nextInt(3);
+					int loot_type = rand.nextInt(4);
 					
 					if (loot_type == 0) {
 						
@@ -1008,6 +1086,13 @@ public class Game extends Activity implements OnClickListener {
 						
 						grenade = grenade + 1;
 						loot_string = "grenade";	
+					}
+					else if (loot_type == 3) {
+						
+						randmoney = rand.nextInt(11);
+						money = money + randmoney;
+						
+						loot_string = randmoney  + "$";	
 					}
 					
 					textView.setText("Loot:" + loot_string);
@@ -1026,9 +1111,10 @@ public class Game extends Activity implements OnClickListener {
 				if (THREAT_LEVEL > 9) {
 					
 					setContentView(R.layout.theend);
+					currentenc = 98;
 					
 					textView = (TextView) findViewById(R.id.turns);
-					textView.setText("Total Turns: " + turns);
+					textView.setText("Score: " + turns);
 					
 				}
 				else {
@@ -1085,8 +1171,24 @@ public class Game extends Activity implements OnClickListener {
 	   public boolean onOptionsItemSelected(MenuItem item) {
 	   switch (item.getItemId()) {
 	   case R.id.settings:
-	   startActivity(new Intent(this, Prefs.class));
-	   return true;
+		   startActivity(new Intent(this, Prefs.class));
+		   return true;
+	   case R.id.charsheet:
+		   
+		   if ( currentenc == 98 ) {
+			   finish();
+		   }
+		   
+		   CharSheet();
+		   return true;
+	   case R.id.minventory:
+		   
+		   if ( currentenc == 98 ) {
+			   finish();
+		   }
+		   
+		   Inventory();
+		   return true;
 	   // More items go here (if any) ...
 	   }
 	   return false;
@@ -1113,6 +1215,8 @@ public class Game extends Activity implements OnClickListener {
 			View combatinvButton = findViewById(R.id.combatinventory);
 			combatinvButton.setOnClickListener(this);
 		   
+			   textView = (TextView) findViewById(R.id.threatlevel);
+			   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   }
 
 	   private void startEncOne() {
@@ -1133,6 +1237,9 @@ public class Game extends Activity implements OnClickListener {
 			
 			View combatinvButton = findViewById(R.id.combatinventory);
 			combatinvButton.setOnClickListener(this);
+			
+			   textView = (TextView) findViewById(R.id.threatlevel);
+			   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   }
 	   
 	   private void startEncTwo() {
@@ -1153,7 +1260,10 @@ public class Game extends Activity implements OnClickListener {
 			
 			View combatinvButton = findViewById(R.id.combatinventory);
 			combatinvButton.setOnClickListener(this);
-		   }
+		
+			   textView = (TextView) findViewById(R.id.threatlevel);
+			   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
+	   }
 	   
 	   private void startEncThree() {
 		   setContentView(R.layout.thebigone);
@@ -1174,6 +1284,9 @@ public class Game extends Activity implements OnClickListener {
 			
 			View combatinvButton = findViewById(R.id.combatinventory);
 			combatinvButton.setOnClickListener(this);
+			
+			   textView = (TextView) findViewById(R.id.threatlevel);
+			   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   }
 	   
 	   private void startEncFour() {
@@ -1185,7 +1298,7 @@ public class Game extends Activity implements OnClickListener {
 		   textView = (TextView) findViewById(R.id.threatlevel);
 		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   textView = (TextView) findViewById(R.id.turns);
-		   textView.setText("Turns: " + turns);
+		   textView.setText("Score: " + turns);
 
 		   }
 	   
@@ -1208,6 +1321,9 @@ public class Game extends Activity implements OnClickListener {
 			
 			View combatinvButton = findViewById(R.id.combatinventory);
 			combatinvButton.setOnClickListener(this);
+			
+			   textView = (TextView) findViewById(R.id.threatlevel);
+			   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   }
 
 	   private void startEncSix() {
@@ -1219,7 +1335,7 @@ public class Game extends Activity implements OnClickListener {
 		   textView = (TextView) findViewById(R.id.threatlevel);
 		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   textView = (TextView) findViewById(R.id.turns);
-		   textView.setText("Turns: " + turns);
+		   textView.setText("Score: " + turns);
 		   }
 
 	   private void startEncSeven() {
@@ -1240,6 +1356,9 @@ public class Game extends Activity implements OnClickListener {
 			
 			View combatinvButton = findViewById(R.id.combatinventory);
 			combatinvButton.setOnClickListener(this);
+			
+			   textView = (TextView) findViewById(R.id.threatlevel);
+			   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   }
 	   
 	   private void startEncEight() {
@@ -1261,6 +1380,9 @@ public class Game extends Activity implements OnClickListener {
 			
 			View combatinvButton = findViewById(R.id.combatinventory);
 			combatinvButton.setOnClickListener(this);
+			
+			   textView = (TextView) findViewById(R.id.threatlevel);
+			   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   }
 	   
 	   private void startEncNine() {
@@ -1281,6 +1403,9 @@ public class Game extends Activity implements OnClickListener {
 			
 			View combatinvButton = findViewById(R.id.combatinventory);
 			combatinvButton.setOnClickListener(this);
+			
+			   textView = (TextView) findViewById(R.id.threatlevel);
+			   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   }
 
 	   private void startEncTen() {
@@ -1292,7 +1417,7 @@ public class Game extends Activity implements OnClickListener {
 		   textView = (TextView) findViewById(R.id.threatlevel);
 		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   textView = (TextView) findViewById(R.id.turns);
-		   textView.setText("Turns: " + turns);
+		   textView.setText("Score: " + turns);
 		   }
 	   
 	   private void startEncEleven() {
@@ -1314,6 +1439,9 @@ public class Game extends Activity implements OnClickListener {
 			
 			View combatinvButton = findViewById(R.id.combatinventory);
 			combatinvButton.setOnClickListener(this);
+			
+			   textView = (TextView) findViewById(R.id.threatlevel);
+			   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   }
 
 	   private void startEncTwelve() {
@@ -1325,7 +1453,7 @@ public class Game extends Activity implements OnClickListener {
 		   textView = (TextView) findViewById(R.id.threatlevel);
 		   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   textView = (TextView) findViewById(R.id.turns);
-		   textView.setText("Turns: " + turns);
+		   textView.setText("Score: " + turns);
 		   }
 	   
 	   private void startEncThirteen() {
@@ -1347,6 +1475,9 @@ public class Game extends Activity implements OnClickListener {
 			
 			View combatinvButton = findViewById(R.id.combatinventory);
 			combatinvButton.setOnClickListener(this);
+			
+			   textView = (TextView) findViewById(R.id.threatlevel);
+			   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   }
 	   
 	   private void startEncFourteen() {
@@ -1391,6 +1522,9 @@ public class Game extends Activity implements OnClickListener {
 			
 			View combatinvButton = findViewById(R.id.combatinventory);
 			combatinvButton.setOnClickListener(this);
+			
+			   textView = (TextView) findViewById(R.id.threatlevel);
+			   textView.setText("Threat Level: " + THREAT_LEVEL + "/10");
 		   }
 	   
 	   private void ShotgunBlast() {
@@ -1416,6 +1550,26 @@ public class Game extends Activity implements OnClickListener {
 		   
 		    grenade = grenade - 1;
 			View continueButton = findViewById(R.id.continue_button);
+			continueButton.setOnClickListener(this);
+		   
+		   }
+	   
+	   private void CharSheet() {
+		   setContentView(R.layout.charsheet);
+		   
+		   textView = (TextView) findViewById(R.id.charlevel);
+		   textView.setText("Level: " + charlvl);
+		   
+		   textView = (TextView) findViewById(R.id.charexp);
+		   textView.setText("XP: " + charexp);
+		   
+		   textView = (TextView) findViewById(R.id.charatt);
+		   textView.setText("Attack: " + ATTACK_LEVEL);
+		   
+		   textView = (TextView) findViewById(R.id.chardef);
+		   textView.setText("Defense: " + DEFENSE_LEVEL);
+		   
+		    View continueButton = findViewById(R.id.continue_button_bad);
 			continueButton.setOnClickListener(this);
 		   
 		   }

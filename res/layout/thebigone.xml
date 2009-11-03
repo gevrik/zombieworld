@@ -34,7 +34,7 @@ android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:layout_marginBottom="5dip"
 android:layout_marginRight="10dip"
-android:text="@string/thebigone_text" />
+android:text="@string/thebigone_text" android:textSize="12px"/>
 
 <TableLayout
 android:layout_height="wrap_content"
@@ -93,7 +93,7 @@ android:layout_gravity="center_horizontal" >
 	android:layout_height="38px"
 	android:src="@drawable/inventory"
 	android:background="@drawable/inventory"
-	/>
+	android:layout_gravity="center_horizontal"/>
 
 <TextView android:id="@+id/threatlevel"
 android:layout_width="fill_parent"
